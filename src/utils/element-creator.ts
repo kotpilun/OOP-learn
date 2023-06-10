@@ -12,9 +12,11 @@ export default class ElementCreator {
   createElement(param: TElementCreator) {
     this.element = document.createElement(param.tag);
     this.setCssClasses(param.classes);
-    this.setTextContent(param.text);
-    if (param.calllback) {
-      this.setCallback(param.calllback);
+    if (param.text) {
+      this.setTextContent(param.text);
+    }
+    if (param.callback) {
+      this.setCallback(param.callback);
     }
   }
   
@@ -34,6 +36,12 @@ export default class ElementCreator {
     if (callback) {
       // this.element?.addEventListener('click', callback);
       this.element?.addEventListener('click', (event) => callback(event));
+    }
+  }
+
+  addInnerElement(element: HTMLElement) {
+    if (this.element) {
+      this.element.append(element);
     }
   }
 
