@@ -10,7 +10,9 @@ export default class ElementCreator {
   }
 
   createElement(param: TElementCreator) {
-    this.element = document.createElement(param.tag);
+    if (param.tag) {
+      this.element = document.createElement(param.tag);
+    }
     this.setCssClasses(param.classes);
     if (param.text) {
       this.setTextContent(param.text);

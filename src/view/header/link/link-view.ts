@@ -19,11 +19,6 @@ export default class LinkView extends View {
   }
 
   setSelectedStatus() {
-    // const linkElems = document.querySelectorAll('.link');
-    // linkElems.forEach((elem) => {
-    //   elem.classList.remove('active-link');
-    // });
-
     this.linkElems.forEach(elem => {
       elem.setNotSelectedStatus();
     })
