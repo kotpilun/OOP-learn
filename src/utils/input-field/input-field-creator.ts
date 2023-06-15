@@ -3,7 +3,7 @@ import ElementCreator from '../element-creator';
 import './input-field.scss';
 
 export default class InputFieldCreator extends ElementCreator {
-  inputElement: HTMLElement|undefined;
+  inputElement: HTMLInputElement|undefined;
   labelElement: HTMLElement|undefined;
 
   constructor(param: TElementCreator) {
@@ -43,5 +43,9 @@ export default class InputFieldCreator extends ElementCreator {
     if (callback) {
       this.element?.addEventListener('keyup', (event) => callback(event));
     }
+  }
+
+  setValue(value: string) {
+    this.inputElement!.value = value;
   }
 }

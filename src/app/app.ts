@@ -8,6 +8,7 @@ import ProductView from "../view/main/product/product-view";
 import View from "../view/view";
 import { ID_SELECTOR, Pages } from "./router/pages";
 import Router from "./router/router";
+import State from "./state/state";
 
 export default class App {
   router: Router;
@@ -18,7 +19,8 @@ export default class App {
     this.header = null;
     this.main = null;
 
-    const routes = this.createRoutes();
+    const state = new State();
+    const routes = this.createRoutes(state);
     console.log(routes);
     this.router = new Router(routes);
 
@@ -39,18 +41,18 @@ export default class App {
     );
   }
 
-  createRoutes(): TRoute[] {
+  createRoutes(state: State): TRoute[] {
     return [
       {
         path: ``,
         callback: () => {
-          this.setContent(Pages.INDEX, new IndexView());
+          this.setContent(Pages.INDEX, new IndexView(state));
         },
       },
       {
         path: `${Pages.INDEX}`,
         callback: () => {
-          this.setContent(Pages.INDEX, new IndexView());
+          this.setContent(Pages.INDEX, new IndexView(state));
         },
       },
       {
