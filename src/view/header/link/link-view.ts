@@ -3,9 +3,9 @@ import View from "../../view";
 import { TLinkProps } from '../../../interfaces/interfaces';
 
 export default class LinkView extends View {
-  linkElems: LinkView[];
+  linkElems: Map<string, LinkView>;
 
-  constructor(linkProps: TLinkProps, linkElems: LinkView[]) {
+  constructor(linkProps: TLinkProps, linkElems: Map<string, LinkView>) {
     const param = {
       tag: 'a',
       classes: ['link'],

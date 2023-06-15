@@ -2,19 +2,19 @@ import './header.scss';
 import View from '../view';
 import ElementCreator from '../../utils/element-creator';
 import LinkView from './link/link-view';
-import IndexView from '../main/index/index-view';
-import MainView from '../main/main-view';
-import CardView from '../main/product/card/card-view';
-import ProductView from '../main/product/product-view';
+import Router from '../../app/router/router';
+import { Pages } from '../../app/router/pages';
+import { TLinkProps, TPageNames } from '../../interfaces/interfaces';
 
-
-
-const START_PAGE_INDEX = 0;
+const NamePages: TPageNames = {
+  INDEX: 'MAIN',
+  PRODUCT: 'CARDS',
+};
 
 export default class HeaderView extends View {
-  linkElems:LinkView[]
+  linkElems: Map<string, LinkView>
 
-  constructor(mainComponent: MainView) {
+  constructor(router: Router) {
       const param = {
         tag: 'header',
         classes: ['header'],
@@ -22,51 +22,39 @@ export default class HeaderView extends View {
 
     super(param);
     
-    this.linkElems = [];
-    this.configureView(mainComponent);
+    // this.linkElems = [];
+    this.linkElems = new Map();
+    this.configureView(router);
   }
 
-
-  configureView(mainComponent: MainView) {
-    /// add nav
+  configureView(router: Router) {
     const paramsNav = {
       tag: 'nav',
       classes: ['nav'],
     }
-    const creatorNav = new ElementCreator(paramsNav);
 
+    const creatorNav = new ElementCreator(paramsNav);
     this.elementCreator.addInnerElement(creatorNav.getElement());
 
-    /// add index view
-    const indexView = new IndexView();
-    
-    /// add card view
-    const productView = new ProductView();
+    const pages = Object.keys(NamePages) as Array<keyof TPageNames>;
 
-    /// add links on nav
-    const linkProps = [
-      {
-        text: 'MAIN', 
-        callback: () => mainComponent.setContent(indexView),
-      },
-      {
-        text: 'CARDS',
-        callback: () => mainComponent.setContent(productView),
-      }
-    ];
+    pages.forEach((key) => {
+      const linkParams: TLinkProps = {
+        text: NamePages[key]!,
+        callback: () => router.navigate(Pages[key]!),
+      };
 
-    linkProps.forEach((link, index) => {
-      const linkView = new LinkView(link, this.linkElems);
+      const linkView = new LinkView(linkParams, this.linkElems);
 
+      creatorNav.addInnerElement(linkView.getHtmlElement());
 
-      creatorNav.addInnerElement(linkView.getHtmlElement())
+      this.linkElems.set(Pages[key]!, linkView);
+    });
+  }
 
-      this.linkElems.push(linkView);
-
-      if (index === START_PAGE_INDEX) {
-        linkView.setSelectedStatus();
-      }
-    })
+  setSelectedItem(namePage: string) {
+    const linkComponent: LinkView = this.linkElems.get(namePage)!;
+    linkComponent.setSelectedStatus();
   }
 
 }

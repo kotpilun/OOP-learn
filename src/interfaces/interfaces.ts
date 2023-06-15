@@ -16,3 +16,19 @@ export type TCardInfo = {
   description: string;
 }
 
+// export type TPageNames = 'INDEX' | 'PRODUCT'; 
+export type TPageNames ={
+  INDEX: string,
+  PRODUCT: string,
+  NOT_FOUND?: string
+}
+
+export type TRoute = {
+  path: string;
+  callback: Function
+}
+
+export type TRequest = {
+  path: string,
+  resource: string
+}

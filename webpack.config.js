@@ -86,6 +86,6 @@ module.exports = {
     compress:true,
     hot:false,
     liveReload:true,
-    
+    historyApiFallback: true,
   },
 };

@@ -32,8 +32,7 @@ export default class InputFieldCreator extends ElementCreator {
       this.setTextContent(param.text);
     }
 
-    this.element.append(this.inputElement);
-    this.element.append(this.labelElement);
+    this.element.append(this.labelElement, this.inputElement);
   }
 
   setTextContent(text: string) {

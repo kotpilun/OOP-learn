@@ -21,7 +21,6 @@ export default class IndexView extends View {
 
   configureView() {
     let paramsInput:TElementCreator = {
-      // tag: 'input',
       classes: ['input-wrapper'],
       text: 'Input text',
       callback: (event: Event) => this.keyupHandler(event, 'firstField')
