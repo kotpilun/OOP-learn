@@ -3,7 +3,6 @@ import FooterView from "../view/footer/footer-view";
 import HeaderView from "../view/header/header-view";
 import IndexView from "../view/main/index/index-view";
 import MainView from "../view/main/main-view";
-import NotFoundView from "../view/main/not-found/not-found-view";
 import ProductView from "../view/main/product/product-view";
 import View from "../view/view";
 import { ID_SELECTOR, Pages } from "./router/pages";
@@ -45,31 +44,36 @@ export default class App {
     return [
       {
         path: ``,
-        callback: () => {
+        callback: async () => {
+          const { default: IndexView } = await import('../view/main/index/index-view');
           this.setContent(Pages.INDEX, new IndexView(state));
         },
       },
       {
         path: `${Pages.INDEX}`,
-        callback: () => {
+        callback: async () => {
+          const { default: IndexView } = await import('../view/main/index/index-view');
           this.setContent(Pages.INDEX, new IndexView(state));
         },
       },
       {
         path: `${Pages.PRODUCT}`,
-        callback: () => {
+        callback: async () => {
+          const { default: ProductView } = await import('../view/main/product/product-view');
           this.setContent(Pages.PRODUCT, new ProductView('', this.router));
         },
       },
       {
         path: `${Pages.PRODUCT}/${ID_SELECTOR}`,
-        callback: (id: string) => {
+        callback: async (id: string) => {
+          const { default: ProductView } = await import('../view/main/product/product-view');
           this.setContent(Pages.PRODUCT, new ProductView(id, this.router));
         },
       },
       {
         path: `${Pages.NOT_FOUND}`,
-        callback: () => {
+        callback: async () => {
+          const { default: NotFoundView } = await import('../view/main/not-found/not-found-view');
           this.setContent(Pages.INDEX, new NotFoundView());
         },
       },
