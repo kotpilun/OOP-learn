@@ -1,9 +1,7 @@
 import { TRoute } from "../interfaces/interfaces";
 import FooterView from "../view/footer/footer-view";
 import HeaderView from "../view/header/header-view";
-import IndexView from "../view/main/index/index-view";
 import MainView from "../view/main/main-view";
-import ProductView from "../view/main/product/product-view";
 import View from "../view/view";
 import { ID_SELECTOR, Pages } from "./router/pages";
 import Router from "./router/router";
@@ -30,8 +28,6 @@ export default class App {
     this.header = new HeaderView(this.router);
     this.main = new MainView();
     const footerView = new FooterView();
-
-    // mainView.setContent(new IndexView());
 
     document.body.append(
       this.header.getHtmlElement(), 
